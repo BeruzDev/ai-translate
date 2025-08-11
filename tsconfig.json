@@ -7,6 +7,7 @@
   "compilerOptions": {
     "lib": ["dom", "esnext"],
     "jsx": "react-jsx",
+    "types": ["node"],
     "composite": true
   }
 }
