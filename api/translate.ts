@@ -75,7 +75,7 @@ export default async function handler(req, res){
 		const translatedText = await translate({
 			fromLanguage,
 			toLanguage,
-			text
+			text,
 		})
 		res.status(200).json({ translatedText })
 	} catch (e) {
