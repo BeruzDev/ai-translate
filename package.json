@@ -2,7 +2,6 @@
   "name": "ai-translate",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
   "scripts": {
     "dev": "vercel dev",
     "build": "tsc -b && vite build",
