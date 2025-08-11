@@ -10,10 +10,10 @@ interface Props {
 }
 
 const commonStyles = {
-  border: 0,
+  border: '0',
   height: '200px',
   width: '300px',
-  resize: 'none',
+  resize: 'none' as const,
 }
 
 const getPlaceholder = ({
