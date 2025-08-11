@@ -1,5 +1,5 @@
 import OpenAI from 'openai'
-import { SUPORTED_LANGUAGES } from './apiConstants.ts'
+import { SUPORTED_LANGUAGES } from './apiConstants.js'
 import type { FromLanguage, Language } from './apiType.d.ts'
 
 const openai = new OpenAI({
