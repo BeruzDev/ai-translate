@@ -1,6 +1,11 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
-import { SwitchIcon, ClipboardIcon, SpeakerIcon } from './components/Icons.tsx'
+import {
+  SwitchIcon,
+  ClipboardIcon,
+  SpeakerIcon,
+  MicrophoneIcon,
+} from './components/Icons.tsx'
 import { useStore } from './hooks/useStore.ts'
 import { useDebounce } from './hooks/useDebounce.ts'
 import { Container, Row, Col, Button, Stack } from 'react-bootstrap'
@@ -10,6 +15,13 @@ import { SectionType } from '../shared/type.d'
 import { TextArea } from './components/TextArea.tsx'
 import { useEffect } from 'react'
 import { requestTranslate } from './services/requestTranslate.ts'
+
+declare global {
+  interface Window {
+    SpeechRecognition: any
+    webkitSpeechRecognition: any
+  }
+}
 
 function App() {
   const {
@@ -71,9 +83,34 @@ function App() {
     speechSynthesis.speak(utterance)
   }
 
+  const handleMic = () => {
+    const SpeechRecognition =
+      window.SpeechRecognition || window.webkitSpeechRecognition
+    if (!SpeechRecognition) {
+      alert('Speech recognition is not supported in this browser.')
+      return
+    }
+
+    const recognition = new SpeechRecognition()
+    recognition.lang = fromLanguage.includes('-')
+      ? fromLanguage
+      : `${fromLanguage}-${fromLanguage.toUpperCase()}`
+    recognition.interimResults = false
+    recognition.maxAlternatives = 1
+
+    recognition.onresult = (event: any) => {
+      const transcript = event.results[0][0].transcript
+      setFromText(transcript)
+    }
+
+    recognition.start()
+  }
+
   return (
     <Container fluid>
-      <h2 style={{ textAlign: 'center', marginBottom: '2.5rem' }}>BeruzDev Ai Translate</h2>
+      <h2 style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
+        BeruzDev Ai Translate
+      </h2>
 
       <Row>
         <Col>
@@ -83,11 +120,26 @@ function App() {
               value={fromLanguage}
               onChange={setFromLanguage}
             />
-            <TextArea
-              type={SectionType.From}
-              value={fromText}
-              onChange={setFromText}
-            />
+            <div style={{ position: 'relative' }}>
+              <TextArea
+                type={SectionType.From}
+                value={fromText}
+                onChange={setFromText}
+              />
+              <div
+                style={{
+                  position: 'absolute',
+                  left: 0,
+                  bottom: 0,
+                  opacity: 0.5,
+                  display: 'flex',
+                }}
+              >
+                <Button variant="link" onClick={handleMic}>
+                  <MicrophoneIcon />
+                </Button>
+              </div>
+            </div>
           </Stack>
         </Col>
 
