@@ -1,6 +1,6 @@
 import OpenAI from 'openai'
-import { SUPORTED_LANGUAGES } from '../shared/constants'
-import type { FromLanguage, Language } from '../shared/type'
+import { SUPORTED_LANGUAGES } from './apiConstants'
+import type { FromLanguage, Language } from './apiType'
 
 const openai = new OpenAI({
 	apiKey: process.env.OPENAI_API_KEY
