@@ -1,4 +1,5 @@
 import { Form } from 'react-bootstrap'
+import './TextArea.css'
 import { AUTO_LANGUAGE, SUPORTED_LANGUAGES } from '../../shared/constants.ts'
 import {
   SectionType,
@@ -20,12 +21,12 @@ type Props =
 
 export const LanguageSelector = ({ onChange, type, value }: Props) => {
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    //!! <-- Hay que tipar el evento en TypeScript!!
     onChange(event.target.value as Language)
   }
 
   return (
     <Form.Select
+      className='custom-scrollbar'
       aria-label="Select language"
       onChange={handleChange}
       value={value}
