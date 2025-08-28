@@ -5,6 +5,7 @@ import {
   ClipboardIcon,
   SpeakerIcon,
   MicrophoneIcon,
+  HeartIcon,
 } from './components/Icons.tsx'
 import { useStore } from './hooks/useStore.ts'
 import { useDebounce } from './hooks/useDebounce.ts'
@@ -107,90 +108,137 @@ function App() {
   }
 
   return (
-    <Container fluid>
-      <h2 style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
-        BeruzDev Ai Translate
-      </h2>
-
-      <Row>
-        <Col>
-          <Stack gap={2}>
-            <LanguageSelector
-              type={SectionType.From}
-              value={fromLanguage}
-              onChange={setFromLanguage}
-            />
-            <div style={{ position: 'relative' }}>
-              <TextArea
+    <>
+      <header
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '60px',
+          background: '#fff',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: '0 2rem',
+          zIndex: 101,
+        }}
+      >
+        <span style={{  fontSize: '1.3rem' }}>
+          Ai Translator
+        </span>
+        <a
+          href="https://github.com/BeruzDev/ai-translate"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ display: 'flex', alignItems: 'center' }}
+          aria-label="GitHub"
+        >
+          <img
+            src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
+            alt="GitHub"
+            width={32}
+            height={32}
+          />
+        </a>
+      </header>
+      <Container fluid>
+        <Row>
+          <Col>
+            <Stack gap={2}>
+              <LanguageSelector
                 type={SectionType.From}
-                value={fromText}
-                onChange={setFromText}
+                value={fromLanguage}
+                onChange={setFromLanguage}
               />
-              <div
-                style={{
-                  position: 'absolute',
-                  left: 0,
-                  bottom: 0,
-                  opacity: 0.5,
-                  display: 'flex',
-                }}
-              >
-                <Button variant="link" onClick={handleMic}>
-                  <MicrophoneIcon />
-                </Button>
+              <div style={{ position: 'relative' }}>
+                <TextArea
+                  type={SectionType.From}
+                  value={fromText}
+                  onChange={setFromText}
+                />
+                <div
+                  style={{
+                    position: 'absolute',
+                    left: 0,
+                    bottom: 0,
+                    opacity: 0.5,
+                    display: 'flex',
+                  }}
+                >
+                  <Button variant="link" onClick={handleMic}>
+                    <MicrophoneIcon />
+                  </Button>
+                </div>
               </div>
-            </div>
-          </Stack>
-        </Col>
+            </Stack>
+          </Col>
 
-        <Col xs="auto">
-          <Button
-            variant="link"
-            disabled={fromLanguage === AUTO_LANGUAGE}
-            onClick={() => {
-              interchangeLanguages()
-            }}
-          >
-            <SwitchIcon />
-          </Button>
-        </Col>
+          <Col xs="auto">
+            <Button
+              variant="link"
+              disabled={fromLanguage === AUTO_LANGUAGE}
+              onClick={() => {
+                interchangeLanguages()
+              }}
+            >
+              <SwitchIcon />
+            </Button>
+          </Col>
 
-        <Col>
-          <Stack gap={2}>
-            <LanguageSelector
-              type={SectionType.To}
-              value={toLanguage}
-              onChange={setToLanguage}
-            />
-            <div style={{ position: 'relative' }}>
-              <TextArea
+          <Col>
+            <Stack gap={2}>
+              <LanguageSelector
                 type={SectionType.To}
-                value={result}
-                onChange={setResult}
-                loading={loading}
+                value={toLanguage}
+                onChange={setToLanguage}
               />
-              <div
-                style={{
-                  position: 'absolute',
-                  left: 0,
-                  bottom: 0,
-                  opacity: 0.5,
-                  display: 'flex',
-                }}
-              >
-                <Button variant="link" onClick={handleClipboard}>
-                  <ClipboardIcon />
-                </Button>
+              <div style={{ position: 'relative' }}>
+                <TextArea
+                  type={SectionType.To}
+                  value={result}
+                  onChange={setResult}
+                  loading={loading}
+                />
+                <div
+                  style={{
+                    position: 'absolute',
+                    left: 0,
+                    bottom: 0,
+                    opacity: 0.5,
+                    display: 'flex',
+                  }}
+                >
+                  <Button variant="link" onClick={handleClipboard}>
+                    <ClipboardIcon />
+                  </Button>
 
-                <Button variant="link" onClick={handleSpeak}>
-                  <SpeakerIcon />
-                </Button>
+                  <Button variant="link" onClick={handleSpeak}>
+                    <SpeakerIcon />
+                  </Button>
+                </div>
               </div>
-            </div>
-          </Stack>
-        </Col>
-      </Row>
-    </Container>
+            </Stack>
+          </Col>
+        </Row>
+      </Container>
+
+      <footer
+        style={{
+          position: 'fixed',
+          left: 0,
+          bottom: 0,
+          width: '100%',
+          textAlign: 'left',
+          padding: '1rem 2rem',
+          borderTop: '1px solid #eee',
+          background: '#fff',
+          zIndex: 100,
+        }}
+      >
+        Developed by BeruzDev <HeartIcon />
+      </footer>
+    </>
   )
 }
 
