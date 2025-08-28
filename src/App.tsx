@@ -231,7 +231,6 @@ function App() {
           width: '100%',
           textAlign: 'left',
           padding: '1rem 2rem',
-          borderTop: '1px solid #eee',
           background: '#fff',
           zIndex: 100,
         }}
